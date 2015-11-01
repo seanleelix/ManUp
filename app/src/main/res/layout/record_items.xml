@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <!-- display textviews -->
+    <!-- Date -->
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="2dp"
+        android:textSize="25sp" />
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/date"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="3dp" >
+
+        <!-- Push-ups -->
+
+        <TableRow android:layout_marginLeft="20dp" >
+
+            <TextView
+                android:id="@+id/pushups_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/record_items_pushup" />
+
+            <TextView
+                android:id="@+id/pushups"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:gravity="right" />
+        </TableRow>
+
+        <!-- Sit-ups -->
+
+        <TableRow
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="3dp" >
+
+            <TextView
+                android:id="@+id/situps_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/record_items_situp" />
+
+            <TextView
+                android:id="@+id/situps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:gravity="right"
+                android:text="0" />
+        </TableRow>
+
+        <!-- Running -->
+
+        <TableRow
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="3dp"
+            android:paddingBottom="5dp" >
+
+            <TextView
+                android:id="@+id/running_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/record_items_running" />
+
+            <TextView
+                android:id="@+id/running"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:gravity="right" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:gravity="left"
+                android:text="@string/running_unit" 
+                />
+        </TableRow>
+    </TableLayout>
+
+</RelativeLayout>

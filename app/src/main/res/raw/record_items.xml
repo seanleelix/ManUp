@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+  
+	<!-- display textviews -->
+	<!-- Date -->
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" 
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="15dp"
+        android:textSize="25sp"/>
+
+    <!-- Push-ups -->
+    <TextView
+        android:id="@+id/pushups_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/date"
+        android:layout_alignLeft="@id/date"
+        android:layout_marginTop="3dp"
+        android:text="Push-Ups:"
+        />
+    
+    <TextView
+        android:id="@+id/pushups"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+		android:layout_toRightOf="@id/pushups_textview"
+		android:layout_alignTop="@id/pushups_textview"
+         />
+    
+    <!-- Sit-ups -->
+    <TextView
+        android:id="@+id/situps_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/date"
+        android:layout_below="@+id/pushups_textview"
+        android:layout_marginTop="3dp"
+        android:text="Sit-Ups:"
+        />
+
+    <TextView
+        android:id="@+id/situps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/situps_textview"
+        android:layout_alignTop="@id/situps_textview"
+         />
+
+    <!-- Running -->
+    <TextView
+        android:id="@+id/running_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/date"
+        android:layout_below="@id/situps_textview"
+        android:layout_marginTop="3dp"
+        android:paddingBottom="5dp"
+        android:text="Running:"
+        />
+    
+    <TextView
+        android:id="@+id/running"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/running_textview"
+        android:layout_alignTop="@id/running_textview"      
+	 />
+
+</RelativeLayout>

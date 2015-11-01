@@ -1,0 +1,121 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".MainActivity" >
+
+    <LinearLayout
+        android:id="@+id/bottom_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal" >
+
+        <!-- pushups button -->
+
+        <Button
+            android:id="@+id/pushups_button"
+            android:layout_width="0dp"
+            android:layout_height="77dp"
+            android:layout_weight="1"
+            android:background="@drawable/pushups_d" />
+
+        <!-- situps button -->
+
+        <Button
+            android:id="@+id/situps_button"
+            android:layout_width="0dp"
+            android:layout_height="77dp"
+            android:layout_weight="1"
+            android:background="@drawable/situps_button" />
+
+        <!-- running button -->
+
+        <Button
+            android:id="@+id/running_button"
+            android:layout_width="0dp"
+            android:layout_height="77dp"
+            android:layout_weight="1"
+            android:background="@drawable/running_button" />
+
+        <!-- record button -->
+
+        <Button
+            android:id="@+id/record_button"
+            android:layout_width="0dp"
+            android:layout_height="77dp"
+            android:layout_weight="1"
+            android:background="@drawable/record_button" />
+
+        <!-- complete button -->
+
+        <Button
+            android:id="@+id/complete_button"
+            android:layout_width="0dp"
+            android:layout_height="77dp"
+            android:layout_weight="1"
+            android:background="@drawable/complete_button" />
+    </LinearLayout>
+
+    <!-- counter panel -->
+
+    <Button
+        android:id="@+id/counter_button"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="80dp"
+        android:background="@drawable/situps_button_bg" />
+
+    <TextView
+        android:id="@+id/date_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/counter_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="52dp"
+        android:textSize="20dp" />
+
+    <ImageView
+        android:id="@+id/thousand"
+        android:layout_width="37dp"
+        android:layout_height="54dp"
+        android:layout_alignLeft="@id/counter_button"
+        android:layout_alignTop="@id/counter_button"
+        android:layout_marginLeft="44dp"
+        android:layout_marginTop="93dp"
+        android:src="@drawable/situps_digit0" />
+
+    <ImageView
+        android:id="@+id/hundred"
+        android:layout_width="37dp"
+        android:layout_height="54dp"
+        android:layout_alignTop="@id/thousand"
+        android:layout_toRightOf="@id/thousand"
+        android:src="@drawable/situps_digit0" />
+
+    <ImageView
+        android:id="@+id/decade"
+        android:layout_width="37dp"
+        android:layout_height="54dp"
+        android:layout_alignTop="@id/hundred"
+        android:layout_toRightOf="@id/hundred"
+        android:src="@drawable/situps_digit0" />
+
+    <ImageView
+        android:id="@+id/units"
+        android:layout_width="37dp"
+        android:layout_height="54dp"
+        android:layout_alignTop="@id/decade"
+        android:layout_toRightOf="@id/decade"
+        android:src="@drawable/situps_digit0" />
+
+    <Button
+        android:id="@+id/start_button"
+        android:layout_width="160dp"
+        android:layout_height="65dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/start_button" />
+    
+</RelativeLayout>

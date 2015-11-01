@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.seanlee.manups"
+    android:versionCode="6"
+    android:versionName="1.4" >
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="19" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        <activity
+            android:name="com.seanlee.manups.activities.SplashActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.seanlee.manups.activities.GuideActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.seanlee.manups.activities.PushupsActivity"
+            android:launchMode="singleTask"
+            android:configChanges="locale"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.seanlee.manups.activities.SitupsActivity"
+            android:launchMode="singleTask"
+            android:configChanges="locale"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.seanlee.manups.activities.RunningActivity"
+            android:launchMode="singleTask"
+            android:configChanges="locale"
+            android:label="@string/title_activity_running"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.seanlee.manups.activities.RecordActivity"
+            android:launchMode="singleTask"
+            android:configChanges="locale"
+            android:label="@string/title_activity_record"
+            android:screenOrientation="portrait" >
+        </activity>
+
+        <service android:name="com.seanlee.manups.services.ManupService" >
+        </service>
+        <service android:name=".services.RunningService" >
+        </service>
+    </application>
+
+</manifest>

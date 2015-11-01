@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="210dp"
+    android:background="#131313"
+    android:orientation="vertical" >
+
+    <TableLayout
+        android:id="@+id/tableForm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="17dp"
+        android:layout_marginTop="30dp" >
+
+        <TableRow android:gravity="center_horizontal" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:text="@string/running_setting_weight"
+                android:textColor="#05dae9"
+                android:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/weightEditText"
+                android:layout_width="170dp"
+                android:layout_height="45dp"
+                android:background="#0a0a0a"
+                android:gravity="center"
+                android:hint="@string/weight_hint"
+                android:textColorHint="#292929"
+                android:inputType="number"
+                android:selectAllOnFocus="true"
+                android:textColor="#05dae9" />
+        </TableRow>
+
+        <TableRow
+            android:layout_marginTop="2dp"
+            android:gravity="center_horizontal" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="@string/running_setting_height"
+                android:textColor="#05dae9"
+                android:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/heightEditText"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="#0a0a0a"
+                android:gravity="center"
+                android:hint="@string/height_hint"
+                android:textColorHint="#292929"
+                android:inputType="number"
+                android:selectAllOnFocus="true"
+                android:textColor="#05dae9" />
+        </TableRow>
+    </TableLayout>
+
+    <ImageView
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tableForm"
+        android:background="@drawable/setting_dialog_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/line"
+        android:layout_marginTop="15dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/confirm"
+            android:layout_width="120dp"
+            android:layout_height="35dp"
+            android:background="@drawable/setting_dialog_confirm" />
+
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="120dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="8dp"
+            android:background="@drawable/setting_dialog_cancel" />
+
+    </LinearLayout>
+
+</RelativeLayout>
