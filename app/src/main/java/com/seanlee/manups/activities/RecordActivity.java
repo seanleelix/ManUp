@@ -14,6 +14,8 @@ import android.app.Dialog;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+
+import android.widget.Space;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -21,6 +23,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.SimpleCursorAdapter;
 
 import com.seanlee.manups.R;
@@ -28,7 +31,7 @@ import com.seanlee.manups.views.TouchScrollView;
 
 /**
  * @author Sean Lee
- * @version 1.3
+ *         modified at 2/11/2015
  */
 public class RecordActivity extends BasicActivity {
 
@@ -39,14 +42,10 @@ public class RecordActivity extends BasicActivity {
     private SimpleCursorAdapter adapter = null;
     private SQLiteDatabase database = null;
 
-    /**
-     * the new view set
-     */
     public TouchScrollView touchScrollView;
     public LinearLayout container;
-    public ImageView aboutview;
+    public Space topIconSpace;
     public ImageView emptyImageView;
-    // about view
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,9 +64,14 @@ public class RecordActivity extends BasicActivity {
         mRunningButton.setOnClickListener(ItemOnClickListener);
         mRecordClearButton.setOnClickListener(ItemOnClickListener);
 
-        aboutview = (ImageView) findViewById(R.id.aboutview);
+        topIconSpace = (Space) findViewById(R.id.top_icon_space);
+
         container = (LinearLayout) findViewById(R.id.container);
-        touchScrollView = new TouchScrollView(this, aboutview, R.drawable.records_top);
+
+        RelativeLayout relativeLayout = (RelativeLayout) View.inflate(this, R.layout.setting_layout, null);
+        container.addView(relativeLayout);
+
+        touchScrollView = new TouchScrollView(this, relativeLayout, R.drawable.records_top, topIconSpace);
 
         emptyImageView = (ImageView) findViewById(R.id.empty_imageview);
         emptyImageView.setVisibility(View.INVISIBLE);

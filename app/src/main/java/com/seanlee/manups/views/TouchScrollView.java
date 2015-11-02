@@ -4,6 +4,7 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
+import android.widget.Space;
 import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -46,7 +47,7 @@ public class TouchScrollView extends LinearLayout implements GestureDetector.OnG
     //        void onTouchScrollViewOpened(View groupView);
     //    }
 
-    public TouchScrollView(Context context, View contentView, int dropButtonResource) {
+    public TouchScrollView(Context context, View contentView, int dropButtonResource, Space topIconSpace) {
         super(context);
         this.mContext = context;
 
@@ -67,6 +68,9 @@ public class TouchScrollView extends LinearLayout implements GestureDetector.OnG
         Point screenDisplayPoint = new Point();
         wm.getDefaultDisplay().getSize(screenDisplayPoint);
         int dropButtonDisplayHeight = dropButtonHeight * screenDisplayPoint.x / dropButtonWidth;
+
+        // Leave a space to the top for record list
+        topIconSpace.setMinimumHeight(dropButtonHeight);
 
         // Calculate Content height
         LayoutParams touchScrollViewLayoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, screenDisplayPoint.y);
