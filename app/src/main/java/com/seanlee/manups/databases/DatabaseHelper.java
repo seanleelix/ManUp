@@ -1,48 +1,39 @@
-/*
-
- *  This is a class for control our database
- */
 package com.seanlee.manups.databases;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
- * 
- * ClassName: DatabaseHelper Function: To create a Database or manage database
- * update . date: 2014-3-7
- * 
- * @author LI Xiao
- * @version 1.3
+ * @author Sean Lee
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-	private String TABLE_NAME = "DEFAULT";
+    protected static final String DB_NAME = "manup.db";
+    private static final int DB_VERSION = 1;
 
-	public DatabaseHelper(Context context, String name, CursorFactory factory,
-			int version) {
-		super(context, name, factory, version);
-	}
+    public static String RECORD_TABLE = "record";
 
-	public void setTableName(String mTableName) {
+    public DatabaseHelper(Context context) {
+        super(context, DB_NAME, null, DB_VERSION);
+    }
 
-		this.TABLE_NAME = mTableName;
-	}
+    @Override
+    public void onCreate(SQLiteDatabase db) {
 
-	@Override
-	public void onCreate(SQLiteDatabase db) {
-		System.out.println("create a Database");
-		db.execSQL("CREATE TABLE "
-				+ TABLE_NAME
-				+ "(_id INTEGER PRIMARY KEY AUTOINCREMENT, date varchar(50), "
-				+ "pushups int, situps int, running int)");
-	}
+        db.execSQL("CREATE TABLE " + RECORD_TABLE + "("
+                + "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
+                + "date NUMERIC NOT NULL,"
+                + "pushup INTEGER,"
+                + "situp INTEGER,"
+                + "running INTEGER"
+                + ")");
 
-	@Override
-	public void onUpgrade(SQLiteDatabase db, int oldversion, int newversion) {
+    }
 
-	}
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldversion, int newversion) {
+
+    }
 
 }

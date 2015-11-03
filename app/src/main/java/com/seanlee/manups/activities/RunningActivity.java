@@ -12,13 +12,10 @@ package com.seanlee.manups.activities;
 
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
@@ -35,6 +32,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.seanlee.manups.R;
+import com.seanlee.manups.databases.DatabaseOperation;
 import com.seanlee.manups.services.RunningService;
 import com.seanlee.manups.utils.Settings;
 
@@ -89,7 +87,6 @@ public class RunningActivity extends BasicActivity {
 
     private int mPreviousMeter;
     private static final String TABLE_NAME = "manups";
-    private SQLiteDatabase database;
 
     BroadcastReceiver mBroadcastReceiver;
 
@@ -206,10 +203,9 @@ public class RunningActivity extends BasicActivity {
                 meter = 0;
                 steps = 0;
                 calorie = 0;
-                ContentValues contentValue = new ContentValues();
-                contentValue.put("running", mPreviousMeter);
-                database.update(TABLE_NAME, contentValue, "date=?",
-                        new String[]{mDateTextView.getText().toString()});
+
+                DatabaseOperation databaseOperation = new DatabaseOperation(RunningActivity.this);
+                databaseOperation.setCount(mPreviousMeter, "running", mDateTextView.getText().toString());
 
                 // Reset the mask ImageView
                 AlphaAnimation alphaAnimation = new AlphaAnimation(0, 1);
@@ -267,27 +263,8 @@ public class RunningActivity extends BasicActivity {
     protected void onResume() {
         super.onResume();
 
-        // check the database and get the data or create a new row
-        database = getWritableDB();
-        Cursor cursor = database.query(TABLE_NAME, new String[]{"date",
-                        "pushups", "situps", "running"}, "date=?",
-                new String[]{mDateTextView.getText().toString()}, null,
-                null, null);
-        if (cursor.moveToFirst() == false) {
-            ContentValues contentValue = new ContentValues();
-            contentValue.put("date", mDateTextView.getText().toString());
-            contentValue.put("pushups", 0);
-            contentValue.put("situps", 0);
-            contentValue.put("running", 0);
-            database.insert(TABLE_NAME, null, contentValue);
-
-            //set the previous data to 0
-            mPreviousMeter = 0;
-        } else {
-
-            //load the previous data
-            mPreviousMeter = cursor.getInt(cursor.getColumnIndex("running"));
-        }
+        DatabaseOperation databaseOperation = new DatabaseOperation(this);
+        mPreviousMeter = databaseOperation.getPreviousCount(mDateTextView.getText().toString(), "running");
 
         // cannot click complete Button now
         mCompleteButton.setClickable(false);
@@ -381,7 +358,6 @@ public class RunningActivity extends BasicActivity {
         super.onPause();
         mPromptTextView.setAnimation(null);
         unregisterReceiver(mBroadcastReceiver);
-        database.close();
     }
 
     private void displayDigital(int meter) {

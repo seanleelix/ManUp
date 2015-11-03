@@ -18,18 +18,12 @@
  */
 package com.seanlee.manups.activities;
 
-import java.util.Locale;
-
-import com.seanlee.manups.R;
-import com.seanlee.manups.databases.DatabaseHelper;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Handler;
 import android.os.Message;
 import android.util.DisplayMetrics;
@@ -40,6 +34,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
+
+import com.seanlee.manups.R;
+
+import java.util.Locale;
 
 /**
  * 
@@ -109,36 +107,6 @@ public class BasicActivity extends Activity {
 			}
 			}
 		}
-	}
-
-	/**
-	 * 
-	 * getReadableDB
-	 * 
-	 * @author Sean Lee
-	 * @return
-	 */
-	public SQLiteDatabase getReadableDB() {
-		DatabaseHelper dbHelper = new DatabaseHelper(BasicActivity.this,
-				"manupsdb", null, 1);
-		dbHelper.setTableName("manups");
-		SQLiteDatabase db = dbHelper.getReadableDatabase();
-		return db;
-	}
-
-	/**
-	 * 
-	 * getWritableDB
-	 * 
-	 * @author Sean Lee
-	 * @return
-	 */
-	public SQLiteDatabase getWritableDB() {
-		DatabaseHelper dbHelper = new DatabaseHelper(BasicActivity.this,
-				"manupsdb", null, 1);
-		dbHelper.setTableName("manups");
-		SQLiteDatabase db = dbHelper.getWritableDatabase();
-		return db;
 	}
 
 	// Menu is here
