@@ -6,7 +6,7 @@
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:id="@+id/bottom_buttons"
+        android:id="@+id/bottom_buttons_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -158,14 +158,14 @@
         android:id="@+id/masking_imageview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/bottom_buttons"
+        android:layout_above="@id/bottom_buttons_layout"
         android:background="#aa000000" />
 
     <TextView
         android:id="@+id/prompt_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/bottom_buttons"
+        android:layout_above="@id/bottom_buttons_layout"
         android:layout_marginBottom="20dp"
         android:gravity="center_horizontal"
         android:text="@string/running_start_prompt"
@@ -176,7 +176,7 @@
         android:id="@+id/running_background_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/bottom_buttons"
+        android:layout_above="@id/bottom_buttons_layout"
         android:layout_marginBottom="20dp"
         android:gravity="center_horizontal"
         android:text="@string/running_background_prompt"

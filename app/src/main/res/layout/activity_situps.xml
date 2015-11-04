@@ -6,7 +6,7 @@
     tools:context=".MainActivity" >
 
     <LinearLayout
-        android:id="@+id/bottom_buttons"
+        android:id="@+id/bottom_buttons_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

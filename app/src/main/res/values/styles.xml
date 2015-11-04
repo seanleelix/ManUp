@@ -46,7 +46,7 @@
     <style name="ButtonRadioButton">
         <item name="android:layout_weight">1.0</item>
         <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">77dp</item> 
+        <item name="android:layout_height">match_parent</item>
     </style>
 
 </resources>

@@ -12,21 +12,30 @@ package com.seanlee.manups.activities;
 
 import android.animation.ObjectAnimator;
 import android.app.Dialog;
+import android.content.Context;
+import android.graphics.BitmapFactory;
+import android.graphics.Point;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.seanlee.manups.R;
 import com.seanlee.manups.databases.DatabaseOperation;
+import com.seanlee.manups.utils.ManUpUtils;
 import com.seanlee.manups.utils.Settings;
 
 import java.text.SimpleDateFormat;
@@ -52,6 +61,7 @@ public class SitupsActivity extends BasicActivity implements
             R.drawable.situps_digit8, R.drawable.situps_digit9,};
     private Button mStartButton, mPushupsButton, mRunningButton, mRecordButton,
             mCompleteButton, mIntroductionButton;
+    private LinearLayout mBottomButtonLayout;
     private TextView mDateTextView;
     private ImageView mThousandImageView, mHundredImageView, mDecadeImageView,
             mUnitsImageView;
@@ -65,10 +75,23 @@ public class SitupsActivity extends BasicActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_situps);
 
+        initView();
+
+
+    }
+
+    private void initView() {
+
         mPushupsButton = (Button) findViewById(R.id.pushups_button);
         mRunningButton = (Button) findViewById(R.id.running_button);
         mRecordButton = (Button) findViewById(R.id.record_button);
         mCompleteButton = (Button) findViewById(R.id.complete_button);
+        mBottomButtonLayout = (LinearLayout) findViewById(R.id.bottom_buttons_layout);
+
+        //recalculate bottom button height
+        RelativeLayout.LayoutParams bottomLayoutParams = ManUpUtils.getBottomButtonLayoutParams(this);
+        mBottomButtonLayout.setLayoutParams(bottomLayoutParams);
+
         mDateTextView = (TextView) findViewById(R.id.date_textview);
         mThousandImageView = (ImageView) findViewById(R.id.thousand);
         mHundredImageView = (ImageView) findViewById(R.id.hundred);
@@ -177,6 +200,7 @@ public class SitupsActivity extends BasicActivity implements
                 });
             }
         });
+
     }
 
     @Override
