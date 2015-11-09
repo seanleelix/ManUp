@@ -23,6 +23,8 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,13 +58,12 @@ public class PushupsActivity extends BasicActivity implements
     private int mCounter = 0, mPreviousCounter;
     private Button mStartButton, mSitupsButton, mRunningButton, mRecordButton,
             mCompleteButton, mIntroductionButton;
+    private LinearLayout mBottomButtonLayout;
     private TextView mDateTextView;
     private ImageView mThousandImageView, mHundredImageView, mDecadeImageView,
             mUnitsImageView;
     private SensorManager mSensorManager;
     private Sensor mProximity;
-    private static final String TABLE_NAME = "manups";
-    // database variable
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +75,11 @@ public class PushupsActivity extends BasicActivity implements
         mSitupsButton = (Button) findViewById(R.id.situps_button);
         mRunningButton = (Button) findViewById(R.id.running_button);
         mRecordButton = (Button) findViewById(R.id.record_button);
+
+        //recalculate bottom button height
+        mBottomButtonLayout = (LinearLayout) findViewById(R.id.bottom_buttons_layout);
+        mBottomButtonLayout.setLayoutParams(getBottomButtonLayoutParams(this));
+
         mCompleteButton = (Button) findViewById(R.id.complete_button);
         mDateTextView = (TextView) findViewById(R.id.date_textview);
         mThousandImageView = (ImageView) findViewById(R.id.thousand);

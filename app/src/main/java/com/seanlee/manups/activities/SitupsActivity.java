@@ -86,11 +86,9 @@ public class SitupsActivity extends BasicActivity implements
         mRunningButton = (Button) findViewById(R.id.running_button);
         mRecordButton = (Button) findViewById(R.id.record_button);
         mCompleteButton = (Button) findViewById(R.id.complete_button);
-        mBottomButtonLayout = (LinearLayout) findViewById(R.id.bottom_buttons_layout);
 
-        //recalculate bottom button height
-        RelativeLayout.LayoutParams bottomLayoutParams = ManUpUtils.getBottomButtonLayoutParams(this);
-        mBottomButtonLayout.setLayoutParams(bottomLayoutParams);
+        mBottomButtonLayout = (LinearLayout) findViewById(R.id.bottom_buttons_layout);
+        mBottomButtonLayout.setLayoutParams(getBottomButtonLayoutParams(this));
 
         mDateTextView = (TextView) findViewById(R.id.date_textview);
         mThousandImageView = (ImageView) findViewById(R.id.thousand);

@@ -28,6 +28,7 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -66,6 +67,7 @@ public class RunningActivity extends BasicActivity {
 
     private Button mPushupsButton, mSitupsButton, mRecordButton,
             mCompleteButton, mSettingButton;
+    private LinearLayout mBottomButtonLayout;
     private ImageView mThousandImageView, mHundredImageView, mDecadeImageView,
             mUnitsImageView;
     private TextView mStepCounter, mCalorieCounter;
@@ -103,6 +105,11 @@ public class RunningActivity extends BasicActivity {
         mSitupsButton = (Button) findViewById(R.id.situps_button);
         mRecordButton = (Button) findViewById(R.id.record_button);
         mCompleteButton = (Button) findViewById(R.id.complete_button);
+
+        //recalculate bottom button height
+        mBottomButtonLayout = (LinearLayout) findViewById(R.id.bottom_buttons_layout);
+        mBottomButtonLayout.setLayoutParams(getBottomButtonLayoutParams(this));
+
         mSettingButton = (Button) findViewById(R.id.running_setting_button);
         mDateTextView = (TextView) findViewById(R.id.date_textview);
 

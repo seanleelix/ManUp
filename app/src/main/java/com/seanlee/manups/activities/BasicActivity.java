@@ -20,10 +20,13 @@ package com.seanlee.manups.activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.BitmapFactory;
+import android.graphics.Point;
 import android.os.Handler;
 import android.os.Message;
 import android.util.DisplayMetrics;
@@ -33,6 +36,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.seanlee.manups.R;
@@ -194,6 +199,28 @@ public class BasicActivity extends Activity {
 			finish();
 		}
 
+	}
+
+	public RelativeLayout.LayoutParams getBottomButtonLayoutParams(Context context) {
+
+		BitmapFactory.Options options = new BitmapFactory.Options();
+		options.inJustDecodeBounds = true;
+		BitmapFactory.decodeResource(context.getResources(), R.drawable.situps_u, options);
+		int bottomButtonImageWidth = options.outWidth;
+		int bottomButtonImageHeight = options.outHeight;
+
+		WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+		Point screenDisplayPoint = new Point();
+		wm.getDefaultDisplay().
+
+				getSize(screenDisplayPoint);
+
+		int bottomButtonLayoutHeight = bottomButtonImageHeight * (screenDisplayPoint.x / 5) / bottomButtonImageWidth;
+
+		RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, bottomButtonLayoutHeight);
+		layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+
+		return layoutParams;
 	}
 
 }

@@ -36,8 +36,8 @@ import java.util.List;
  */
 public class RecordActivity extends BasicActivity {
 
-    private Button mPushupsButton, mSitupsButton, mRunningButton,
-            mRecordClearButton;
+    private Button mPushupsButton, mSitupsButton, mRunningButton, mRecordClearButton;
+    private LinearLayout mBottomButtonLayout;
     private ListView mDataListView;
 
     public TouchScrollView touchScrollView;
@@ -58,6 +58,11 @@ public class RecordActivity extends BasicActivity {
         mSitupsButton = (Button) findViewById(R.id.situps_button);
         mRunningButton = (Button) findViewById(R.id.running_button);
         mRecordClearButton = (Button) findViewById(R.id.record_clear_button);
+
+        //recalculate bottom button height
+        mBottomButtonLayout = (LinearLayout) findViewById(R.id.bottom_buttons_layout);
+        mBottomButtonLayout.setLayoutParams(getBottomButtonLayoutParams(this));
+
         mDataListView = (ListView) findViewById(R.id.dataListView);
 
         ItemsOnClickListener ItemOnClickListener = new ItemsOnClickListener();
