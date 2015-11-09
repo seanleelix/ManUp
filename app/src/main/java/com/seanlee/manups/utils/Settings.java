@@ -5,9 +5,10 @@ package com.seanlee.manups.utils;
  */
 public class Settings {
 
-    //SharePreference
-    public static final String SHARE_PREFERENCES_NAME = "MAN_UP_PREFERENCES";
-
-
     public static final int START_BUTTON_ANIMATION_DURATION = 300;
+
+    //Default Value
+    public static final float DEFAULT_HEIGHT = 165f;
+    public static final float DEFAULT_WEIGHT = 50f;
+    public static final float DEFAULT_STEP_LENGTH = 0.68475f;
 }

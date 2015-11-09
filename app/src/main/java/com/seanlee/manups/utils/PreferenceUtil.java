@@ -4,70 +4,103 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
-/**
- * Description：SharedPreferences的管理类
- *
- */
 public class PreferenceUtil {
 
-    private static SharedPreferences mSharedPreferences = null;
-    private static Editor mEditor = null;
-    
-    public static void init(Context context){
-    	if (null == mSharedPreferences) {
-    		mSharedPreferences = android.preference.PreferenceManager.getDefaultSharedPreferences(context) ;
-    	}
-    }
-    
-    public static void removeKey(String key){
-        mEditor = mSharedPreferences.edit();
-        mEditor.remove(key);
-        mEditor.commit();
-    }
-    
-    public static void removeAll(){
-        mEditor = mSharedPreferences.edit();
-        mEditor.clear();
-        mEditor.commit();
+    private static final String PreferenceTag = "ManUp";
+
+    public static final String LANGUAGE_KEY = "LANGUAGE";
+    public static final String FIRST_IN_KEY = "FIRST_IN";
+    public static final String USER_HEIGHT = "USER_HEIGHT";
+    public static final String BODY_WEIGHT = "BODY_WEIGHT";
+    public static final String STEP_LENGTH = "STEP_LENGTH";
+    public static final String SET_USER_INFO = "SET_USER_INFO";
+
+
+    //String
+    public static void setPref(Context mContext, String tag, String value) {
+        SharedPreferences myPreference = mContext.getSharedPreferences(PreferenceTag, Context.MODE_PRIVATE);
+        Editor editor = myPreference.edit();
+        editor.putString(tag, value);
+        editor.commit();
     }
 
-    public static void commitString(String key, String value){
-        mEditor = mSharedPreferences.edit();
-        mEditor.putString(key, value);
-        mEditor.commit();
+    //Int
+    public static void setPref(Context mContext, String tag, int value) {
+        SharedPreferences myPreference = mContext.getSharedPreferences(PreferenceTag, Context.MODE_PRIVATE);
+        Editor editor = myPreference.edit();
+        editor.putInt(tag, value);
+        editor.commit();
     }
-    
-    public static String getString(String key, String faillValue){
-        return mSharedPreferences.getString(key, faillValue);
+
+    //Long
+    public static void setPref(Context mContext, String tag, long value) {
+        SharedPreferences myPreference = mContext.getSharedPreferences(PreferenceTag, Context.MODE_PRIVATE);
+        Editor editor = myPreference.edit();
+        editor.putLong(tag, value);
+        editor.commit();
     }
-    
-    public static void commitInt(String key, int value){
-        mEditor = mSharedPreferences.edit();
-        mEditor.putInt(key, value);
-        mEditor.commit();
+
+    //Boolean
+    public static void setPref(Context mContext, String tag, boolean value) {
+        SharedPreferences myPreference = mContext.getSharedPreferences(PreferenceTag, Context.MODE_PRIVATE);
+        Editor editor = myPreference.edit();
+        editor.putBoolean(tag, value);
+        editor.commit();
     }
-    
-    public static int getInt(String key, int failValue){
-        return mSharedPreferences.getInt(key, failValue);
+
+    //Float
+    public static void setPref(Context mContext, String tag, float value) {
+        SharedPreferences myPreference = mContext.getSharedPreferences(PreferenceTag, Context.MODE_PRIVATE);
+        Editor editor = myPreference.edit();
+        editor.putFloat(tag, value);
+        editor.commit();
     }
-    
-    public static void commitLong(String key, long value){
-        mEditor = mSharedPreferences.edit();
-        mEditor.putLong(key, value);
-        mEditor.commit();
+
+    //---------Get value---------------------------------------------
+
+    //String
+    public static String getString(Context mContext, String tag, String defValue) {
+        SharedPreferences myPreference = mContext.getSharedPreferences(PreferenceTag, Context.MODE_PRIVATE);
+        return myPreference.getString(tag, defValue);
     }
-    
-    public static long getLong(String key, long failValue) {
-        return mSharedPreferences.getLong(key, failValue);
+
+    //Int
+    public static int getInt(Context mContext, String tag, int defValue) {
+        SharedPreferences myPreference = mContext.getSharedPreferences(PreferenceTag, Context.MODE_PRIVATE);
+        return myPreference.getInt(tag, defValue);
     }
-    
-    public static void commitBoolean(String key, boolean value){
-        mEditor = mSharedPreferences.edit();
-        mEditor.putBoolean(key, value);
-        mEditor.commit();
+
+    //Long
+    public static long getLong(Context mContext, String tag, long defValue) {
+        SharedPreferences myPreference = mContext.getSharedPreferences(PreferenceTag, Context.MODE_PRIVATE);
+        return myPreference.getLong(tag, defValue);
     }
-    
-    public static Boolean getBoolean(String key, boolean failValue){
-        return mSharedPreferences.getBoolean(key, failValue);
+
+    //Boolean
+    public static boolean getBoolean(Context mContext, String tag, boolean defValue) {
+        SharedPreferences myPreference = mContext.getSharedPreferences(PreferenceTag, Context.MODE_PRIVATE);
+        return myPreference.getBoolean(tag, defValue);
     }
+
+    //Float
+    public static float getFloat(Context mContext, String tag, float defValue) {
+        SharedPreferences myPreference = mContext.getSharedPreferences(PreferenceTag, Context.MODE_PRIVATE);
+        return myPreference.getFloat(tag, defValue);
+    }
+
+    public static void clearPref(Context mContext, String tag) {
+        SharedPreferences myPreference = mContext.getSharedPreferences(PreferenceTag, Context.MODE_PRIVATE);
+        Editor editor = myPreference.edit();
+        editor.remove(tag);
+        editor.commit();
+    }
+
+    //Clear all preference
+    public static void clearAllPref(Context mContext) {
+        SharedPreferences myPreference = mContext.getSharedPreferences(PreferenceTag, Context.MODE_PRIVATE);
+        Editor editor = myPreference.edit();
+        editor.clear();
+        editor.commit();
+    }
+
 }

@@ -59,7 +59,6 @@ public class RecordActivity extends BasicActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record);
         initView();
-        PreferenceUtil.init(this);
     }
 
     private void initView() {
@@ -204,7 +203,8 @@ public class RecordActivity extends BasicActivity {
         }
 
         resources.updateConfiguration(config, dm);
-        PreferenceUtil.commitString("language", language);
+        PreferenceUtil.setPref(this, PreferenceUtil.LANGUAGE_KEY, language);
+
         finish();
         Intent intent = new Intent(RecordActivity.this, RecordActivity.class);
         startActivity(intent);
