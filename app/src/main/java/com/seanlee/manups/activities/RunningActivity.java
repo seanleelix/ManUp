@@ -35,6 +35,7 @@ import com.seanlee.manups.R;
 import com.seanlee.manups.databases.DatabaseOperation;
 import com.seanlee.manups.services.RunningService;
 import com.seanlee.manups.utils.PreferenceUtil;
+import com.seanlee.manups.utils.Settings;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -462,9 +463,9 @@ public class RunningActivity extends BasicActivity {
 
     private void loadSharedPreference() {
 
-        mUserHeight = PreferenceUtil.getFloat(this, PreferenceUtil.USER_HEIGHT, 165f);
-        mUserWeight = PreferenceUtil.getFloat(this, PreferenceUtil.BODY_WEIGHT, 50f);
-        mStepLength = PreferenceUtil.getFloat(this, PreferenceUtil.STEP_LENGTH, 0.68475f);
+        mUserHeight = PreferenceUtil.getFloat(this, PreferenceUtil.USER_HEIGHT, Settings.DEFAULT_HEIGHT);
+        mUserWeight = PreferenceUtil.getFloat(this, PreferenceUtil.BODY_WEIGHT, Settings.DEFAULT_WEIGHT);
+        mStepLength = PreferenceUtil.getFloat(this, PreferenceUtil.STEP_LENGTH, Settings.DEFAULT_STEP_LENGTH);
 
         if (!PreferenceUtil.getBoolean(this, PreferenceUtil.SET_USER_INFO, false)) {
             setting();
