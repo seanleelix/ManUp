@@ -37,6 +37,9 @@
     <string name="notification_subtitle">點擊查看</string>
     <string name="exit_judge">再按一次退出程序</string>
     <string name="language_change">語言</string>
+    <string name="english">英語</string>
+    <string name="cnChinese">簡體中文</string>
+    <string name="twChinese">繁體中文</string>
     
     <string-array name="language">
         <item>英語</item>

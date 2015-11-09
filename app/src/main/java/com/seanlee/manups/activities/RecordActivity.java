@@ -10,8 +10,15 @@
  */
 package com.seanlee.manups.activities;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -26,9 +33,11 @@ import com.seanlee.manups.R;
 import com.seanlee.manups.adapters.RecordAdapter;
 import com.seanlee.manups.databases.DatabaseOperation;
 import com.seanlee.manups.models.RecordModel;
+import com.seanlee.manups.utils.PreferenceUtil;
 import com.seanlee.manups.views.TouchScrollView;
 
 import java.util.List;
+import java.util.Locale;
 
 /**
  * @author Sean Lee
@@ -50,6 +59,7 @@ public class RecordActivity extends BasicActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record);
         initView();
+        PreferenceUtil.init(this);
     }
 
     private void initView() {
@@ -118,6 +128,41 @@ public class RecordActivity extends BasicActivity {
         });
 
         container.addView(touchScrollView);
+
+        Button mLanguage = (Button) findViewById(R.id.select_language);
+        mLanguage.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(RecordActivity.this);
+                Resources languageRes = getResources();
+                String title4AlartDialog = languageRes.getString(R.string.language_change);
+                builder.setTitle(title4AlartDialog);
+
+                CharSequence[] items = languageRes.getStringArray(R.array.language);
+
+                builder.setItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                switchLanguage("en");
+                                break;
+                            case 1:
+                                switchLanguage("zh-rCN");
+                                break;
+                            case 2:
+                                switchLanguage("zh-rTW");
+                                break;
+                            default:
+                                Log.d(this.getClass().toString(), "onClick Error");
+                                break;
+                        }
+                    }
+                });
+                builder.show();
+            }
+        });
+
     }
 
     @Override
@@ -146,4 +191,23 @@ public class RecordActivity extends BasicActivity {
         super.onPause();
     }
 
+    protected void switchLanguage(String language) {
+        Resources resources = getResources();
+        Configuration config = resources.getConfiguration();
+        DisplayMetrics dm = resources.getDisplayMetrics();
+        if (language.equals("en")) {
+            config.locale = Locale.ENGLISH;
+        } else if (language.equals("zh-rCN")){
+            config.locale = Locale.SIMPLIFIED_CHINESE;
+        } else if(language.equals("zh-rTW")){
+            config.locale = Locale.TRADITIONAL_CHINESE;
+        }
+
+        resources.updateConfiguration(config, dm);
+        PreferenceUtil.commitString("language", language);
+        finish();
+        Intent intent = new Intent(RecordActivity.this, RecordActivity.class);
+        startActivity(intent);
+        overridePendingTransition(0, 0);
+    }
 }
