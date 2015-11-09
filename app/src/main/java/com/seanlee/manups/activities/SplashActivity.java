@@ -2,13 +2,12 @@ package com.seanlee.manups.activities;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
 import com.seanlee.manups.R;
-import com.seanlee.manups.utils.Settings;
+import com.seanlee.manups.utils.PreferenceUtil;
 
 /**
  * @author LI Weimin
@@ -59,8 +58,7 @@ public class SplashActivity extends Activity {
             };
         }
 
-        SharedPreferences preferences = getSharedPreferences(Settings.SHARE_PREFERENCES_NAME, MODE_PRIVATE);
-        isFirstIn = preferences.getBoolean("isFirstIn", true);
+        PreferenceUtil.getBoolean(this, PreferenceUtil.FIRST_IN_KEY, true);
 
         if (!isFirstIn) {
             mHandler.sendEmptyMessageDelayed(GO_HOME, SPLASH_DELAY_MILLIS);

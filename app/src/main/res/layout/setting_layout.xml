@@ -7,7 +7,8 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="button1" />
+        android:id="@+id/select_language"
+        android:text="@string/language_change" />
 
     <Button
         android:layout_width="wrap_content"

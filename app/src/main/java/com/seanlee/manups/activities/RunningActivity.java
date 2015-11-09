@@ -15,7 +15,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
@@ -35,7 +34,7 @@ import android.widget.Toast;
 import com.seanlee.manups.R;
 import com.seanlee.manups.databases.DatabaseOperation;
 import com.seanlee.manups.services.RunningService;
-import com.seanlee.manups.utils.Settings;
+import com.seanlee.manups.utils.PreferenceUtil;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -455,20 +454,19 @@ public class RunningActivity extends BasicActivity {
     }
 
     private void saveSharedPreference() {
-        SharedPreferences sharedPreference = getSharedPreferences(Settings.SHARE_PREFERENCES_NAME, MODE_PRIVATE);
-        sharedPreference.edit().putFloat("USER_HEIGHT", mUserHeight).apply();
-        sharedPreference.edit().putFloat("BODY_WEIGHT", mUserWeight).apply();
-        sharedPreference.edit().putFloat("STEP_LENGTH", mStepLength).apply();
-        sharedPreference.edit().putBoolean("SET_USER_INFO", true).apply();
+        PreferenceUtil.setPref(this, PreferenceUtil.USER_HEIGHT, mUserHeight);
+        PreferenceUtil.setPref(this, PreferenceUtil.BODY_WEIGHT, mUserWeight);
+        PreferenceUtil.setPref(this, PreferenceUtil.STEP_LENGTH, mStepLength);
+        PreferenceUtil.setPref(this, PreferenceUtil.SET_USER_INFO, true);
     }
 
     private void loadSharedPreference() {
-        SharedPreferences sharedPreference = getSharedPreferences(Settings.SHARE_PREFERENCES_NAME, MODE_PRIVATE);
-        mUserHeight = sharedPreference.getFloat("USER_HEIGHT", 165f);
-        mUserWeight = sharedPreference.getFloat("BODY_WEIGHT", 50);
-        mStepLength = sharedPreference.getFloat("STEP_LENGTH", 0.68475f);
 
-        if (!sharedPreference.getBoolean("SET_USER_INFO", false)) {
+        mUserHeight = PreferenceUtil.getFloat(this, PreferenceUtil.USER_HEIGHT, 165f);
+        mUserWeight = PreferenceUtil.getFloat(this, PreferenceUtil.BODY_WEIGHT, 50f);
+        mStepLength = PreferenceUtil.getFloat(this, PreferenceUtil.STEP_LENGTH, 0.68475f);
+
+        if (!PreferenceUtil.getBoolean(this, PreferenceUtil.SET_USER_INFO, false)) {
             setting();
             Toast.makeText(RunningActivity.this,
                     getResources().getString(R.string.setting_require),
