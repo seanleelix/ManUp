@@ -37,6 +37,9 @@
     <string name="notification_subtitle">Click to check</string>
     <string name="exit_judge">Press again to exit</string>
     <string name="language_change">Language</string>
+    <string name="english">english</string>
+    <string name="cnChinese">Simplified Chinese</string>
+    <string name="twChinese">Tranditional Chinese</string>
 
     <string-array name="language">
         <item>English</item>
