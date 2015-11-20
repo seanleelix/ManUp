@@ -201,9 +201,9 @@ public class RecordActivity extends BasicActivity {
         DisplayMetrics dm = resources.getDisplayMetrics();
         if (language.equals("en")) {
             config.locale = Locale.ENGLISH;
-        } else if (language.equals("zh-rCN")){
+        } else if (language.equals("zh-rCN")) {
             config.locale = Locale.SIMPLIFIED_CHINESE;
-        } else if(language.equals("zh-rTW")){
+        } else if (language.equals("zh-rTW")) {
             config.locale = Locale.TRADITIONAL_CHINESE;
         }
 
