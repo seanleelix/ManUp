@@ -12,24 +12,17 @@ package com.seanlee.manups.activities;
 
 import android.animation.ObjectAnimator;
 import android.app.Dialog;
-import android.content.Context;
-import android.graphics.BitmapFactory;
-import android.graphics.Point;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.util.AttributeSet;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -76,8 +69,6 @@ public class SitupsActivity extends BasicActivity implements
         setContentView(R.layout.activity_situps);
 
         initView();
-
-
     }
 
     private void initView() {
@@ -198,6 +189,7 @@ public class SitupsActivity extends BasicActivity implements
                 });
             }
         });
+        mIntroductionButton.startAnimation(ManUpUtils.defaultBreathingAnimation());
 
     }
 

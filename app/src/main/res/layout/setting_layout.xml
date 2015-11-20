@@ -4,31 +4,20 @@
     android:layout_height="match_parent"
     android:background="@drawable/setting_background">
 
-    <RelativeLayout
+    <Button
+        android:id="@+id/select_language"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/default_button_background"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:text="@string/language_change"
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
 
-        <Button
-            android:id="@+id/select_language"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="@string/language_change" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/select_language"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="Select Language" />
-    </RelativeLayout>
 
     <Space
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_alignParentBottom="true"
-        />
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

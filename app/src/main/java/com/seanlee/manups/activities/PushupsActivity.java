@@ -24,13 +24,13 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.seanlee.manups.R;
 import com.seanlee.manups.databases.DatabaseOperation;
 import com.seanlee.manups.services.ManupService;
+import com.seanlee.manups.utils.ManUpUtils;
 import com.seanlee.manups.utils.Settings;
 
 import java.text.SimpleDateFormat;
@@ -191,6 +191,7 @@ public class PushupsActivity extends BasicActivity implements
                 });
             }
         });
+        mIntroductionButton.startAnimation(ManUpUtils.defaultBreathingAnimation());
 
         // To start a service for updating the database everyday
         Intent serviceIntent = new Intent(this, ManupService.class);

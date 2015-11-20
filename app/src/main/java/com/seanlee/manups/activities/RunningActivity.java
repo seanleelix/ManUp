@@ -34,6 +34,7 @@ import android.widget.Toast;
 import com.seanlee.manups.R;
 import com.seanlee.manups.databases.DatabaseOperation;
 import com.seanlee.manups.services.RunningService;
+import com.seanlee.manups.utils.ManUpUtils;
 import com.seanlee.manups.utils.PreferenceUtil;
 import com.seanlee.manups.utils.Settings;
 
@@ -184,7 +185,7 @@ public class RunningActivity extends BasicActivity {
 
                 // Run in background TextView
                 mRunBackground.setVisibility(View.VISIBLE);
-                mRunBackground.startAnimation(setPromptTextViewAnimation());
+                mRunBackground.startAnimation(ManUpUtils.defaultBreathingAnimation());
 
                 isServiceOn = true;
                 // start the service for detecting motion
@@ -223,7 +224,7 @@ public class RunningActivity extends BasicActivity {
 
                 // Breathing TextView for prompting user
                 // "Tap the Screen to Start"
-                mPromptTextView.startAnimation(setPromptTextViewAnimation());
+                mPromptTextView.startAnimation(ManUpUtils.defaultBreathingAnimation());
 
                 // Disable the setting button
                 mSettingButton.setClickable(false);
@@ -283,7 +284,7 @@ public class RunningActivity extends BasicActivity {
             mCompleteButton.setAlpha(1);
         } else {
             // Reset the Breathing textview
-            mPromptTextView.startAnimation(setPromptTextViewAnimation());
+            mPromptTextView.startAnimation(ManUpUtils.defaultBreathingAnimation());
         }
 
         // Define a inside broadcast receiver
@@ -319,7 +320,7 @@ public class RunningActivity extends BasicActivity {
                     mRecordButton.setAlpha(0.2f);
 
                     mRunBackground.setVisibility(View.VISIBLE);
-                    mRunBackground.startAnimation(setPromptTextViewAnimation());
+                    mRunBackground.startAnimation(ManUpUtils.defaultBreathingAnimation());
                 }
 
                 // After entering, it should update the chronometer
