@@ -9,11 +9,9 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
         android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         <activity
             android:name="com.seanlee.manups.activities.SplashActivity"
-            android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,35 +21,30 @@
         </activity>
         <activity
             android:name="com.seanlee.manups.activities.GuideActivity"
-            android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.seanlee.manups.activities.PushupsActivity"
             android:launchMode="singleTask"
             android:configChanges="locale"
-            android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.seanlee.manups.activities.SitupsActivity"
             android:launchMode="singleTask"
             android:configChanges="locale"
-            android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.seanlee.manups.activities.RunningActivity"
             android:launchMode="singleTask"
             android:configChanges="locale"
-            android:label="@string/title_activity_running"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.seanlee.manups.activities.RecordActivity"
             android:launchMode="singleTask"
             android:configChanges="locale"
-            android:label="@string/title_activity_record"
             android:screenOrientation="portrait" >
         </activity>
 
