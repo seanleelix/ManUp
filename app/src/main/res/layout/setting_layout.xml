@@ -22,7 +22,7 @@
             android:layout_toLeftOf="@id/select_language"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Select Language" />
+            android:text="@string/selec_language" />
     </RelativeLayout>
 
     <Space

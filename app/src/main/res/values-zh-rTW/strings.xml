@@ -40,6 +40,7 @@
     <string name="english">英語</string>
     <string name="cnChinese">簡體中文</string>
     <string name="twChinese">繁體中文</string>
+    <string name="selec_language">選擇語言</string>
 
     <string-array name="language">
         <item>英語</item>
