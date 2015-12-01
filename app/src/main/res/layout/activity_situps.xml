@@ -5,48 +5,12 @@
     android:background="@drawable/background"
     tools:context=".MainActivity" >
 
-    <LinearLayout
+    <include
         android:id="@+id/bottom_buttons_layout"
+        layout="@layout/bottom_buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal" >
-
-        <!-- pushups button -->
-
-        <Button
-            android:id="@+id/pushups_button"
-            style="@style/ButtonRadioButton"
-            android:background="@drawable/pushups_button" />
-
-        <!-- situps button -->
-
-        <Button
-            android:id="@+id/situps_button"
-            style="@style/ButtonRadioButton"
-            android:background="@drawable/situps_d" />
-
-        <!-- running button -->
-
-        <Button
-            android:id="@+id/running_button"
-            style="@style/ButtonRadioButton"
-            android:background="@drawable/running_button" />
-
-        <!-- record button -->
-
-        <Button
-            android:id="@+id/record_button"
-            style="@style/ButtonRadioButton"
-            android:background="@drawable/record_button" />
-
-        <!-- complete button -->
-
-        <Button
-            android:id="@+id/complete_button"
-            style="@style/ButtonRadioButton"
-            android:background="@drawable/complete_button" />
-    </LinearLayout>
+        android:layout_alignParentBottom="true"/>
 
     <!-- counter panel -->
 
@@ -58,7 +22,7 @@
         android:layout_centerInParent="true"
         android:stateListAnimator="@null"
         android:layout_marginBottom="80dp"
-        android:background="@drawable/situps_button_bg" />
+        android:background="@drawable/counter_panel_background" />
 
     <TextView
         android:id="@+id/date_textview"

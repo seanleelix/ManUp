@@ -7,7 +7,7 @@
     <string name="exit_judge">再按一次退出程序</string>
     <string name="counter_start_toast">開始計數，點擊\'Complete\'停止</string>
     <string name="counter_complete_toast">數據已保存</string>
-    <string name="calorie_unit">千卡</string>
+    <string name="calorie_unit">%1$.2f 千卡</string>
     <string name="calorie">0.00 千卡</string>
 
     <!-- Push Up -->
@@ -21,9 +21,9 @@
     <string name="running_complete_toast">數據已保存</string>
 	<string name="running_start_prompt">點擊屏幕開始鍛煉</string>
     <string name="chronometer">%s 時間</string>
-    <string name="step_unit">步數</string>
+    <string name="step_unit">%1$d 步數</string>
     <string name="step">0 步數</string>
-    <string name="running_unit">米</string>
+    <string name="distance_unit">%1$d 米</string>
     <string name="running_background_prompt">啟動後台運行</string>
 
     <!-- Setting -->

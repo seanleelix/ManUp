@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     protected static final String DB_NAME = "manup.db";
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 2;
 
     public static String RECORD_TABLE = "record";
 
@@ -24,9 +24,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE " + RECORD_TABLE + "("
                 + "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
                 + "date NUMERIC NOT NULL,"
-                + "pushup INTEGER,"
-                + "situp INTEGER,"
-                + "running INTEGER"
+                + "pushup INTEGER NOT NULL DEFAULT 0,"
+                + "pushup_calorie REAL NOT NULL DEFAULT 0,"
+                + "situp INTEGER NOT NULL DEFAULT 0,"
+                + "situp_calorie REAL NOT NULL DEFAULT 0,"
+                + "running INTEGER NOT NULL DEFAULT 0,"
+                + "running_calorie REAL NOT NULL DEFAULT 0"
                 + ")");
 
     }

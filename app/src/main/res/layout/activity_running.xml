@@ -1,61 +1,26 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/background"
-    tools:context=".MainActivity">
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/background"
+                tools:context=".MainActivity">
 
-    <LinearLayout
+    <include
         android:id="@+id/bottom_buttons_layout"
+        layout="@layout/bottom_buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal">
-
-        <!-- pushups button -->
-
-        <Button
-            android:id="@+id/pushups_button"
-            style="@style/ButtonRadioButton"
-            android:background="@drawable/pushups_button" />
-
-        <!-- situps button -->
-
-        <Button
-            android:id="@+id/situps_button"
-            style="@style/ButtonRadioButton"
-            android:background="@drawable/situps_button" />
-
-        <!-- running button -->
-
-        <Button
-            android:id="@+id/running_button"
-            style="@style/ButtonRadioButton"
-            android:background="@drawable/running_d" />
-
-        <!-- record button -->
-
-        <Button
-            android:id="@+id/record_button"
-            style="@style/ButtonRadioButton"
-            android:background="@drawable/record_button" />
-
-        <!-- complete button -->
-
-        <Button
-            android:id="@+id/complete_button"
-            style="@style/ButtonRadioButton"
-            android:background="@drawable/complete_button" />
-    </LinearLayout>
+        android:layout_alignParentBottom="true"/>
 
     <!-- Panel -->
 
     <ImageView
         android:id="@+id/panel"
-        android:layout_width="320dp"
+        android:layout_width="match_parent"
         android:layout_height="253dp"
         android:layout_centerInParent="true"
-        android:src="@drawable/running_bg" />
+        android:scaleType="fitXY"
+        android:src="@drawable/running_bg"/>
 
     <TextView
         android:id="@+id/date_textview"
@@ -66,7 +31,7 @@
         android:layout_marginTop="3dp"
         android:text="2014.04.14"
         android:textColor="#6f6f6f"
-        android:textSize="25dp" />
+        android:textSize="25dp"/>
 
     <Button
         android:id="@+id/running_setting_button"
@@ -74,47 +39,55 @@
         android:layout_height="33dp"
         android:layout_alignRight="@id/panel"
         android:layout_alignTop="@id/panel"
-        android:background="@drawable/running_setting" />
+        android:background="@drawable/setting_button"
+        android:stateListAnimator="@null"/>
 
     <!-- Distance Counter -->
 
-    <ImageView
-        android:id="@+id/thousand"
-        android:layout_width="60dp"
-        android:layout_height="117dp"
+    <LinearLayout
+        android:id="@+id/counter_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignLeft="@id/panel"
         android:layout_alignTop="@id/panel"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="39dp"
-        android:src="@drawable/running_digit0" />
+        android:gravity="center_horizontal"
+        android:layout_marginRight="50dp"
+        >
 
-    <ImageView
-        android:id="@+id/hundred"
-        android:layout_width="60dp"
-        android:layout_height="117dp"
-        android:layout_alignTop="@id/panel"
-        android:layout_marginTop="39dp"
-        android:layout_toRightOf="@id/thousand"
-        android:src="@drawable/running_digit0" />
+        <ImageView
+            android:id="@+id/thousand"
+            android:layout_width="60dp"
+            android:layout_height="117dp"
+            android:layout_alignLeft="@id/panel"
+            android:layout_alignTop="@id/panel"
+            android:src="@drawable/running_digit0"/>
 
-    <ImageView
-        android:id="@+id/decade"
-        android:layout_width="60dp"
-        android:layout_height="117dp"
-        android:layout_alignTop="@id/panel"
-        android:layout_marginTop="39dp"
-        android:layout_toRightOf="@id/hundred"
-        android:src="@drawable/running_digit0" />
+        <ImageView
+            android:id="@+id/hundred"
+            android:layout_width="60dp"
+            android:layout_height="117dp"
+            android:layout_alignTop="@id/panel"
+            android:layout_toRightOf="@id/thousand"
+            android:src="@drawable/running_digit0"/>
 
-    <ImageView
-        android:id="@+id/unit"
-        android:layout_width="60dp"
-        android:layout_height="117dp"
-        android:layout_alignTop="@id/panel"
-        android:layout_marginTop="39dp"
-        android:layout_toRightOf="@id/decade"
-        android:src="@drawable/running_digit0" />
+        <ImageView
+            android:id="@+id/decade"
+            android:layout_width="60dp"
+            android:layout_height="117dp"
+            android:layout_alignTop="@id/panel"
+            android:layout_toRightOf="@id/hundred"
+            android:src="@drawable/running_digit0"/>
 
+        <ImageView
+            android:id="@+id/unit"
+            android:layout_width="60dp"
+            android:layout_height="117dp"
+            android:layout_alignTop="@id/panel"
+            android:layout_toRightOf="@id/decade"
+            android:src="@drawable/running_digit0"/>
+    </LinearLayout>
     <!-- Timer -->
 
     <Chronometer
@@ -122,11 +95,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignRight="@id/panel"
-        android:layout_below="@id/unit"
+        android:layout_below="@id/counter_layout"
         android:layout_marginRight="20dp"
         android:format="@string/chronometer"
         android:textColor="#6f6f6f"
-        android:textSize="22dp" />
+        android:textSize="22dp"/>
 
     <!-- Step Counter -->
 
@@ -139,7 +112,7 @@
         android:layout_marginRight="20dp"
         android:text="@string/step"
         android:textColor="#6f6f6f"
-        android:textSize="22dp" />
+        android:textSize="22dp"/>
 
     <!-- Calorie Counter -->
 
@@ -152,14 +125,14 @@
         android:layout_marginRight="20dp"
         android:text="@string/calorie"
         android:textColor="#6f6f6f"
-        android:textSize="22dp" />
+        android:textSize="22dp"/>
 
     <ImageView
         android:id="@+id/masking_imageview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bottom_buttons_layout"
-        android:background="#aa000000" />
+        android:background="#aa000000"/>
 
     <TextView
         android:id="@+id/prompt_textview"
@@ -170,7 +143,7 @@
         android:gravity="center_horizontal"
         android:text="@string/running_start_prompt"
         android:textColor="#05dae9"
-        android:textSize="20dp" />
+        android:textSize="20dp"/>
 
     <TextView
         android:id="@+id/running_background_textview"
@@ -180,6 +153,6 @@
         android:layout_marginBottom="20dp"
         android:gravity="center_horizontal"
         android:text="@string/running_background_prompt"
-        android:textSize="20dp" />
+        android:textSize="20dp"/>
 
 </RelativeLayout>

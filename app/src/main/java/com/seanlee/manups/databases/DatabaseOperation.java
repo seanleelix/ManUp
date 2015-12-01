@@ -21,7 +21,6 @@ public class DatabaseOperation {
         databaseHelper = new DatabaseHelper(context);
     }
 
-
     public List<RecordModel> getRecordModel() {
 
         List<RecordModel> recordModelList = new ArrayList<>();
@@ -40,6 +39,17 @@ public class DatabaseOperation {
         return recordModelList;
     }
 
+    public void setCalorie(float count, String columnName, String date) {
+
+        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+
+        ContentValues contentValue = new ContentValues();
+        contentValue.put(columnName, count);
+        database.update(DatabaseHelper.RECORD_TABLE, contentValue, "date=?", new String[]{date});
+
+        database.close();
+    }
+
     public void setCount(int count, String columnName, String date) {
 
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
@@ -51,9 +61,29 @@ public class DatabaseOperation {
         database.close();
     }
 
-    /**
-     * Check the database and get the data or create a new row
-     */
+    public float getPreviousCalorie(String date, String columnName) {
+
+        SQLiteDatabase database = databaseHelper.getReadableDatabase();
+
+        Cursor cursor = database.rawQuery("SELECT * FROM record WHERE date = ?", new String[]{date});
+
+        float previousCalorie;
+
+        if (cursor.moveToFirst()) {
+            previousCalorie = cursor.getFloat(cursor.getColumnIndex(columnName));
+        } else {
+            ContentValues contentValue = new ContentValues();
+            contentValue.put("date", date);
+            database.insertWithOnConflict(DatabaseHelper.RECORD_TABLE, null, contentValue, SQLiteDatabase.CONFLICT_REPLACE);
+
+            previousCalorie = 0f;
+        }
+        cursor.close();
+        database.close();
+
+        return previousCalorie;
+    }
+
     public int getPreviousCount(String date, String columnName) {
 
         SQLiteDatabase database = databaseHelper.getReadableDatabase();
@@ -67,9 +97,6 @@ public class DatabaseOperation {
         } else {
             ContentValues contentValue = new ContentValues();
             contentValue.put("date", date);
-            contentValue.put("pushup", 0);
-            contentValue.put("situp", 0);
-            contentValue.put("running", 0);
             database.insertWithOnConflict(DatabaseHelper.RECORD_TABLE, null, contentValue, SQLiteDatabase.CONFLICT_REPLACE);
 
             previousCount = 0;
@@ -90,9 +117,6 @@ public class DatabaseOperation {
         if (cursor.moveToFirst() == false) {
             ContentValues contentValue = new ContentValues();
             contentValue.put("date", date);
-            contentValue.put("pushup", 0);
-            contentValue.put("situp", 0);
-            contentValue.put("running", 0);
             database.insertWithOnConflict(DatabaseHelper.RECORD_TABLE, null, contentValue, SQLiteDatabase.CONFLICT_REPLACE);
         }
 

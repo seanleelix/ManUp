@@ -59,7 +59,7 @@ public class RecordAdapter extends BaseAdapter {
         holder.dateTextView.setText(record.getDate());
         holder.pushupTextView.setText("" + record.getPushup());
         holder.situpTextView.setText("" + record.getSitup());
-        holder.runningTextView.setText("" + record.getRunning());
+        holder.runningTextView.setText(String.format(context.getString(R.string.distance_unit), record.getRunning()));
 
         return convertView;
     }

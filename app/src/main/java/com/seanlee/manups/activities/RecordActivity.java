@@ -43,9 +43,9 @@ import java.util.Locale;
  * @author Sean Lee
  *         modified at 2/11/2015
  */
-public class RecordActivity extends BasicActivity {
+public class RecordActivity extends BasicActivity implements View.OnClickListener {
 
-    private Button mPushupsButton, mSitupsButton, mRunningButton, mRecordClearButton;
+    private Button mRecordClearButton;
     private LinearLayout mBottomButtonLayout;
     private ListView mDataListView;
 
@@ -54,31 +54,31 @@ public class RecordActivity extends BasicActivity {
     public Space topIconSpace;
     public ImageView emptyImageView;
 
+    // Setting
+    public Button mSelectLanguage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record);
+
         initView();
+        initBottomButtons();
     }
 
     private void initView() {
 
-        mPushupsButton = (Button) findViewById(R.id.pushups_button);
-        mSitupsButton = (Button) findViewById(R.id.situps_button);
-        mRunningButton = (Button) findViewById(R.id.running_button);
-        mRecordClearButton = (Button) findViewById(R.id.record_clear_button);
+        mDataListView = (ListView) findViewById(R.id.dataListView);
+
+        emptyImageView = (ImageView) findViewById(R.id.empty_imageview);
+
+        mRecordClearButton = (Button) findViewById(R.id.complete_button);
+        mRecordClearButton.setBackgroundResource(R.drawable.record_clear_button);
+        mRecordClearButton.setOnClickListener(this);
 
         //recalculate bottom button height
         mBottomButtonLayout = (LinearLayout) findViewById(R.id.bottom_buttons_layout);
         mBottomButtonLayout.setLayoutParams(getBottomButtonLayoutParams(this));
-
-        mDataListView = (ListView) findViewById(R.id.dataListView);
-
-        ItemsOnClickListener ItemOnClickListener = new ItemsOnClickListener();
-        mPushupsButton.setOnClickListener(ItemOnClickListener);
-        mSitupsButton.setOnClickListener(ItemOnClickListener);
-        mRunningButton.setOnClickListener(ItemOnClickListener);
-        mRecordClearButton.setOnClickListener(ItemOnClickListener);
 
         topIconSpace = (Space) findViewById(R.id.top_icon_space);
 
@@ -89,14 +89,54 @@ public class RecordActivity extends BasicActivity {
 
         touchScrollView = new TouchScrollView(this, relativeLayout, R.drawable.records_top, topIconSpace);
 
-        emptyImageView = (ImageView) findViewById(R.id.empty_imageview);
-        emptyImageView.setVisibility(View.INVISIBLE);
+        container.addView(touchScrollView);
 
-        // Delete the data table
-        mRecordClearButton.setOnClickListener(new OnClickListener() {
+        // Setting
+        mSelectLanguage = (Button) findViewById(R.id.select_language);
+        mSelectLanguage.setOnClickListener(this);
+    }
 
-            @Override
-            public void onClick(View v) {
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        DatabaseOperation databaseOperation = new DatabaseOperation(this);
+        List<RecordModel> recordModelList = databaseOperation.getRecordModel();
+
+        RecordAdapter recordAdapter = new RecordAdapter(this, recordModelList);
+        mDataListView.setAdapter(recordAdapter);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    protected void switchLanguage(String language) {
+        Resources resources = getResources();
+        Configuration config = resources.getConfiguration();
+        DisplayMetrics dm = resources.getDisplayMetrics();
+        if (language.equals("en")) {
+            config.locale = Locale.ENGLISH;
+        } else if (language.equals("zh-rCN")) {
+            config.locale = Locale.SIMPLIFIED_CHINESE;
+        } else if (language.equals("zh-rTW")) {
+            config.locale = Locale.TRADITIONAL_CHINESE;
+        }
+
+        resources.updateConfiguration(config, dm);
+        PreferenceUtil.setPref(this, PreferenceUtil.LANGUAGE_KEY, language);
+
+        finish();
+        Intent intent = new Intent(RecordActivity.this, RecordActivity.class);
+        startActivity(intent);
+        overridePendingTransition(0, 0);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.complete_button: {
 
                 final Dialog dialog = new Dialog(RecordActivity.this);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -128,15 +168,10 @@ public class RecordActivity extends BasicActivity {
                     }
                 });
 
+                break;
             }
-        });
+            case R.id.select_language: {
 
-        container.addView(touchScrollView);
-
-        Button mLanguage = (Button) findViewById(R.id.select_language);
-        mLanguage.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(RecordActivity.this);
                 Resources languageRes = getResources();
                 String title4AlartDialog = languageRes.getString(R.string.language_change);
@@ -164,55 +199,9 @@ public class RecordActivity extends BasicActivity {
                     }
                 });
                 builder.show();
+
+                break;
             }
-        });
-
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        initData();
-    }
-
-    private void initData() {
-
-        DatabaseOperation databaseOperation = new DatabaseOperation(this);
-        List<RecordModel> recordModelList = databaseOperation.getRecordModel();
-
-        RecordAdapter recordAdapter = new RecordAdapter(this, recordModelList);
-        mDataListView.setAdapter(recordAdapter);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    protected void switchLanguage(String language) {
-        Resources resources = getResources();
-        Configuration config = resources.getConfiguration();
-        DisplayMetrics dm = resources.getDisplayMetrics();
-        if (language.equals("en")) {
-            config.locale = Locale.ENGLISH;
-        } else if (language.equals("zh-rCN")) {
-            config.locale = Locale.SIMPLIFIED_CHINESE;
-        } else if (language.equals("zh-rTW")) {
-            config.locale = Locale.TRADITIONAL_CHINESE;
         }
-
-        resources.updateConfiguration(config, dm);
-        PreferenceUtil.setPref(this, PreferenceUtil.LANGUAGE_KEY, language);
-
-        finish();
-        Intent intent = new Intent(RecordActivity.this, RecordActivity.class);
-        startActivity(intent);
-        overridePendingTransition(0, 0);
     }
 }

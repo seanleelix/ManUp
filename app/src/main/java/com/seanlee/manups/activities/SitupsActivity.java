@@ -41,7 +41,7 @@ import java.util.Date;
  * @version 1.3
  */
 public class SitupsActivity extends BasicActivity implements
-        SensorEventListener {
+        SensorEventListener, View.OnClickListener {
 
     double x, y, z, angle, preangle = 0;
     int upCounter, downCounter;
@@ -61,7 +61,6 @@ public class SitupsActivity extends BasicActivity implements
     private int mCounter = 0, mPreviousCounter;
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
-    private static final String TABLE_NAME = "manups";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +68,12 @@ public class SitupsActivity extends BasicActivity implements
         setContentView(R.layout.activity_situps);
 
         initView();
+        initBottomButtons();
+
+        // TO define the sensor
+        mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        mAccelerometer = mSensorManager
+                .getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
     }
 
     private void initView() {
@@ -92,123 +97,27 @@ public class SitupsActivity extends BasicActivity implements
         SimpleDateFormat mDate = new SimpleDateFormat("yyyy-MM-dd");
         mDateTextView.setText(mDate.format(new Date()));
 
-        ItemsOnClickListener ItemOnClickListener = new ItemsOnClickListener();
-        mPushupsButton.setOnClickListener(ItemOnClickListener);
-        mRunningButton.setOnClickListener(ItemOnClickListener);
-        mRecordButton.setOnClickListener(ItemOnClickListener);
-        mCompleteButton.setOnClickListener(ItemOnClickListener);
+        mStartButton.setOnClickListener(this);
 
-        // TO define the sensor
-        mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        mAccelerometer = mSensorManager
-                .getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mCompleteButton.setOnClickListener(this);
 
-        mStartButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ObjectAnimator rotateAnimator = ObjectAnimator.ofFloat(mStartButton, "rotationX", 0f, -90f);
-                rotateAnimator.setDuration(Settings.START_BUTTON_ANIMATION_DURATION);
-                rotateAnimator.start();
-
-                mStartButton.setClickable(false);
-
-                mCompleteButton.setEnabled(true);
-                mCompleteButton.setAlpha(1);
-
-                // Disable the other buttons
-                mPushupsButton.setClickable(false);
-                mRunningButton.setClickable(false);
-                mRecordButton.setClickable(false);
-                mPushupsButton.setAlpha(0.2f);
-                mRunningButton.setAlpha(0.2f);
-                mRecordButton.setAlpha(0.2f);
-
-                mSensorManager.registerListener(SitupsActivity.this,
-                        mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-
-                Toast.makeText(SitupsActivity.this,
-                        getResources().getString(R.string.counter_start_toast),
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        mCompleteButton.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                mPreviousCounter += mCounter;
-                mCounter = 0;
-                mThousandImageView.setImageResource(digit[0]);
-                mHundredImageView.setImageResource(digit[0]);
-                mDecadeImageView.setImageResource(digit[0]);
-                mUnitsImageView.setImageResource(digit[0]);
-
-                DatabaseOperation databaseOperation = new DatabaseOperation(SitupsActivity.this);
-                databaseOperation.setCount(mPreviousCounter, "situp", mDateTextView.getText().toString());
-
-                // StartButton animation
-                ObjectAnimator scaleAnimator = ObjectAnimator.ofFloat(mStartButton, "rotationX", -90f, 0f);
-                scaleAnimator.setDuration(Settings.START_BUTTON_ANIMATION_DURATION);
-                scaleAnimator.start();
-
-                mStartButton.setClickable(true);
-                mSensorManager.unregisterListener(SitupsActivity.this);
-                mCompleteButton.setEnabled(false);
-                mCompleteButton.setAlpha(0.2f);
-
-                // Enable the other buttons
-                mPushupsButton.setClickable(true);
-                mRunningButton.setClickable(true);
-                mRecordButton.setClickable(true);
-                mPushupsButton.setAlpha(1);
-                mRunningButton.setAlpha(1);
-                mRecordButton.setAlpha(1);
-
-                Toast.makeText(SitupsActivity.this, getResources().getString(R.string.counter_complete_toast),
-                        Toast.LENGTH_SHORT).show();
-            }
-
-        });
-
-        mIntroductionButton.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                final Dialog dialog = new Dialog(SitupsActivity.this);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setContentView(R.layout.situp_introduction);
-                dialog.show();
-
-                Button confirm = (Button) dialog
-                        .findViewById(R.id.dialog_confirm_button);
-                confirm.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
-            }
-        });
+        mIntroductionButton.setOnClickListener(this);
         mIntroductionButton.startAnimation(ManUpUtils.defaultBreathingAnimation());
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        DatabaseOperation databaseOperation = new DatabaseOperation(this);
-        mPreviousCounter = databaseOperation.getPreviousCount(mDateTextView.getText().toString(), "situp");
-
-        // cannot click complete Button now
-        mCompleteButton.setEnabled(false);
-        mCompleteButton.setAlpha(0.2f);
-
         if (!mStartButton.isClickable()) {
             mSensorManager.registerListener(SitupsActivity.this,
                     mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
             mCompleteButton.setEnabled(true);
             mCompleteButton.setAlpha(1);
+        } else {
+            // cannot click complete Button now
+            mCompleteButton.setEnabled(false);
+            mCompleteButton.setAlpha(0.2f);
         }
 
     }
@@ -305,4 +214,92 @@ public class SitupsActivity extends BasicActivity implements
 
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.start_button: {
+
+                ObjectAnimator rotateAnimator = ObjectAnimator.ofFloat(mStartButton, "rotationX", 0f, -90f);
+                rotateAnimator.setDuration(Settings.START_BUTTON_ANIMATION_DURATION);
+                rotateAnimator.start();
+
+                mStartButton.setClickable(false);
+
+                mCompleteButton.setEnabled(true);
+                mCompleteButton.setAlpha(1);
+
+                // Disable the other buttons
+                mPushupsButton.setClickable(false);
+                mRunningButton.setClickable(false);
+                mRecordButton.setClickable(false);
+                mPushupsButton.setAlpha(0.2f);
+                mRunningButton.setAlpha(0.2f);
+                mRecordButton.setAlpha(0.2f);
+
+                mSensorManager.registerListener(SitupsActivity.this,
+                        mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+
+                Toast.makeText(SitupsActivity.this,
+                        getResources().getString(R.string.counter_start_toast),
+                        Toast.LENGTH_SHORT).show();
+
+                break;
+            }
+            case R.id.complete_button: {
+                DatabaseOperation databaseOperation = new DatabaseOperation(this);
+                mPreviousCounter = databaseOperation.getPreviousCount(mDateTextView.getText().toString(), "situp");
+
+                mPreviousCounter += mCounter;
+                mCounter = 0;
+                mThousandImageView.setImageResource(digit[0]);
+                mHundredImageView.setImageResource(digit[0]);
+                mDecadeImageView.setImageResource(digit[0]);
+                mUnitsImageView.setImageResource(digit[0]);
+
+                databaseOperation.setCount(mPreviousCounter, "situp", mDateTextView.getText().toString());
+
+                // StartButton animation
+                ObjectAnimator scaleAnimator = ObjectAnimator.ofFloat(mStartButton, "rotationX", -90f, 0f);
+                scaleAnimator.setDuration(Settings.START_BUTTON_ANIMATION_DURATION);
+                scaleAnimator.start();
+
+                mStartButton.setClickable(true);
+                mSensorManager.unregisterListener(SitupsActivity.this);
+                mCompleteButton.setEnabled(false);
+                mCompleteButton.setAlpha(0.2f);
+
+                // Enable the other buttons
+                mPushupsButton.setClickable(true);
+                mRunningButton.setClickable(true);
+                mRecordButton.setClickable(true);
+                mPushupsButton.setAlpha(1);
+                mRunningButton.setAlpha(1);
+                mRecordButton.setAlpha(1);
+
+                Toast.makeText(SitupsActivity.this, getResources().getString(R.string.counter_complete_toast),
+                        Toast.LENGTH_SHORT).show();
+
+                break;
+            }
+            case R.id.situp_introduction_button: {
+
+                final Dialog dialog = new Dialog(SitupsActivity.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.situp_introduction);
+                dialog.show();
+
+                Button confirm = (Button) dialog
+                        .findViewById(R.id.dialog_confirm_button);
+                confirm.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                break;
+            }
+
+        }
+    }
 }

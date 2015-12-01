@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.Message;
 
 import com.seanlee.manups.R;
+import com.seanlee.manups.services.ManupService;
 import com.seanlee.manups.utils.PreferenceUtil;
 
 /**
@@ -31,6 +32,10 @@ public class SplashActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+        // To start a service for updating the database everyday
+        Intent serviceIntent = new Intent(this, ManupService.class);
+        startService(serviceIntent);
     }
 
     @Override

@@ -7,9 +7,15 @@
     <string name="exit_judge">Press again to exit</string>
     <string name="counter_start_toast">Start Counting, Tap \'Complete\' to stop</string>
     <string name="counter_complete_toast">Data saved</string>
-    <string name="calorie_unit">Kcal</string>
+    <string name="calorie_unit">%1$.2f Kcal</string>
     <string name="calorie">0.00 Kcal</string>
 
+    <!-- System -->
+    <string name="loading_dialog">Loading</string>
+    <string name="error">Error</string>
+    <string name="no_network">No Network Available</string>
+    <string name="server_error">Server Error</string>
+    <string name="ok">OK</string>
 
     <!-- Push Up -->
     <string name="pushup_introduction">Place the phone as shown in the image and begin push-up with clicking the START button.</string>
@@ -22,9 +28,9 @@
     <string name="running_complete_toast">Data saved</string>
     <string name="running_start_prompt">Tap the Screen to Start</string>
     <string name="chronometer">%s Timer</string>
-    <string name="step_unit">Steps</string>
+    <string name="step_unit">%1$d Steps</string>
     <string name="step">0 Steps</string>
-    <string name="running_unit">m</string>
+    <string name="distance_unit">%1$d m</string>
     <string name="running_background_prompt">Run in background</string>
 
     <!-- Setting -->

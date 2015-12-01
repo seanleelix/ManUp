@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <!-- pushups button -->
+    <Button
+        android:id="@+id/pushups_button"
+        style="@style/ButtonRadioButton"
+        android:background="@drawable/pushups_button"/>
+
+    <!-- situps button -->
+    <Button
+        android:id="@+id/situps_button"
+        style="@style/ButtonRadioButton"
+        android:background="@drawable/situps_button"/>
+
+    <!-- running button -->
+    <Button
+        android:id="@+id/running_button"
+        style="@style/ButtonRadioButton"
+        android:background="@drawable/running_button"/>
+
+    <!-- record button -->
+    <Button
+        android:id="@+id/record_button"
+        style="@style/ButtonRadioButton"
+        android:background="@drawable/record_button"/>
+
+    <!-- complete button -->
+    <Button
+        android:id="@+id/complete_button"
+        style="@style/ButtonRadioButton"
+        android:background="@drawable/complete_button"/>
+</LinearLayout>

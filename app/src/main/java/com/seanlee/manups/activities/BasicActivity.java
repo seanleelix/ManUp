@@ -30,13 +30,12 @@ import android.graphics.Point;
 import android.os.Handler;
 import android.os.Message;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -45,182 +44,197 @@ import com.seanlee.manups.R;
 import java.util.Locale;
 
 /**
- * 
- * @version 1.3
- * @author LI Xiao
- * 
+ * @author Sean Lee
  */
 
 // This class is used for listening the item buttons which is set to change
-public class BasicActivity extends Activity {
+public class BasicActivity extends Activity{
 
-	public boolean isExit = false;
-	Handler handleExit = new Handler() {
-		@Override
-		public void handleMessage(Message msg) {
-			super.handleMessage(msg);
-			isExit = false;
-		}
+    public Button mPushupsButton, mSitupsButton, mRunningButton, mRecordButton;
 
-	};
-	AlertDialog.Builder builder;
-	AlertDialog dialog;
+    public boolean isExit = false;
+    Handler handleExit = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            isExit = false;
+        }
 
-	public class ItemsOnClickListener implements OnClickListener {
-		@Override
-		public void onClick(View v) {
+    };
+    AlertDialog.Builder builder;
+    AlertDialog dialog;
 
-			switch (v.getId()) {
-			case R.id.pushups_button: {
-				// intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION); It's
-				// useful, but if it call finish(), the second activity will
-				// still show up with animation
-				Intent intent = new Intent(BasicActivity.this,
-						PushupsActivity.class);
-				startActivity(intent);
-				finish();
-				overridePendingTransition(0, 0);
-				break;
-			}
-			case R.id.situps_button: {
-				Intent intent = new Intent(BasicActivity.this,
-						SitupsActivity.class);
-				startActivity(intent);
-				finish();
-				overridePendingTransition(0, 0); // to show as a whole activity
-				break;
-			}
-			case R.id.running_button: {
-				Intent intent = new Intent(BasicActivity.this,
-						RunningActivity.class);
-				startActivity(intent);
-				finish();
-				overridePendingTransition(0, 0);
-				break;
-			}
-			case R.id.record_button: {
-				Intent intent = new Intent(BasicActivity.this,
-						RecordActivity.class);
-				startActivity(intent);
-				finish();
-				overridePendingTransition(0, 0);
-				break;
-			}
-			default: {
-				Log.e("Man-Up Error",
-						"Some unknown error --- Please check item button part.");
-			}
-			}
-		}
-	}
+    View.OnClickListener bottomButtonOnClickListener = new View.OnClickListener(){
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.pushups_button: {
+                    Intent intent = new Intent(BasicActivity.this,
+                            PushupsActivity.class);
+                    startActivity(intent);
+                    finish();
+                    overridePendingTransition(0, 0);
+                    break;
+                }
+                case R.id.situps_button: {
+                    Intent intent = new Intent(BasicActivity.this,
+                            SitupsActivity.class);
+                    startActivity(intent);
+                    finish();
+                    overridePendingTransition(0, 0);
+                    break;
+                }
+                case R.id.running_button: {
+                    Intent intent = new Intent(BasicActivity.this,
+                            RunningActivity.class);
+                    startActivity(intent);
+                    finish();
+                    overridePendingTransition(0, 0);
+                    break;
+                }
+                case R.id.record_button: {
+                    Intent intent = new Intent(BasicActivity.this,
+                            RecordActivity.class);
+                    startActivity(intent);
+                    finish();
+                    overridePendingTransition(0, 0);
+                    break;
+                }
+            }
+        }
+    };
 
-	// Menu is here
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
+    public void initBottomButtons() {
+        mPushupsButton = (Button) findViewById(R.id.pushups_button);
+        mSitupsButton = (Button) findViewById(R.id.situps_button);
+        mRunningButton = (Button) findViewById(R.id.running_button);
+        mRecordButton = (Button) findViewById(R.id.record_button);
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case (R.id.menu_exit): {
-			finish();
-			break;
-		}
-		case (R.id.language_change): {
+        mPushupsButton.setOnClickListener(bottomButtonOnClickListener);
+        mSitupsButton.setOnClickListener(bottomButtonOnClickListener);
+        mRunningButton.setOnClickListener(bottomButtonOnClickListener);
+        mRecordButton.setOnClickListener(bottomButtonOnClickListener);
 
-			String[] language = getResources().getStringArray(R.array.language);
-			builder = new AlertDialog.Builder(this);
-			builder.setSingleChoiceItems(language, -1,
-					new DialogInterface.OnClickListener() {
+        if (this instanceof PushupsActivity) {
+            mPushupsButton.setEnabled(false);
+        } else if (this instanceof SitupsActivity) {
+            mSitupsButton.setEnabled(false);
+        } else if (this instanceof RunningActivity) {
+            mRunningButton.setEnabled(false);
+        } else if (this instanceof RecordActivity) {
+            mRecordButton.setEnabled(false);
+        }
 
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							
-							Resources resources = getResources();
-							Configuration config = resources.getConfiguration();
-							DisplayMetrics dm = resources.getDisplayMetrics();
-							
-							switch (which) {
-							case 0: {
-								config.locale = Locale.ENGLISH;
-								break;
-							}
-							case 1: {
-								config.locale = Locale.SIMPLIFIED_CHINESE;
-								break;
-							}
-							case 2: {
-								config.locale = Locale.TRADITIONAL_CHINESE;
-								break;
-							}
-							case 3: {
-								config.locale = Locale.getDefault();
-								break;
-							}
-							}
-							resources.updateConfiguration(config, dm);
-							dialog.dismiss();
-							finish();
-							Intent intent = new Intent();
-							intent.setClass(BasicActivity.this,
-									PushupsActivity.class);
-							startActivity(intent);
-						}
-					});
-			builder.show();
-			break;
-		}
-		}
-		return true;
-	}
+    }
 
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			exitJudgement();
-			return false;
-		} else {
-			return super.onKeyDown(keyCode, event);
-		}
-	}
+    // Menu is here
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
 
-	public void exitJudgement() {
-		if (!isExit) {
-			isExit = true;
-			Toast.makeText(BasicActivity.this,
-					getResources().getString(R.string.exit_judge),
-					Toast.LENGTH_SHORT).show();
-			Message msg = handleExit.obtainMessage();
-			handleExit.sendMessageDelayed(msg, 2000);
-		} else {
-			finish();
-		}
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case (R.id.menu_exit): {
+                finish();
+                break;
+            }
+            case (R.id.language_change): {
 
-	}
+                String[] language = getResources().getStringArray(R.array.language);
+                builder = new AlertDialog.Builder(this);
+                builder.setSingleChoiceItems(language, -1,
+                        new DialogInterface.OnClickListener() {
 
-	public RelativeLayout.LayoutParams getBottomButtonLayoutParams(Context context) {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
 
-		BitmapFactory.Options options = new BitmapFactory.Options();
-		options.inJustDecodeBounds = true;
-		BitmapFactory.decodeResource(context.getResources(), R.drawable.situps_u, options);
-		int bottomButtonImageWidth = options.outWidth;
-		int bottomButtonImageHeight = options.outHeight;
+                                Resources resources = getResources();
+                                Configuration config = resources.getConfiguration();
+                                DisplayMetrics dm = resources.getDisplayMetrics();
 
-		WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-		Point screenDisplayPoint = new Point();
-		wm.getDefaultDisplay().
+                                switch (which) {
+                                    case 0: {
+                                        config.locale = Locale.ENGLISH;
+                                        break;
+                                    }
+                                    case 1: {
+                                        config.locale = Locale.SIMPLIFIED_CHINESE;
+                                        break;
+                                    }
+                                    case 2: {
+                                        config.locale = Locale.TRADITIONAL_CHINESE;
+                                        break;
+                                    }
+                                    case 3: {
+                                        config.locale = Locale.getDefault();
+                                        break;
+                                    }
+                                }
+                                resources.updateConfiguration(config, dm);
+                                dialog.dismiss();
+                                finish();
+                                Intent intent = new Intent();
+                                intent.setClass(BasicActivity.this,
+                                        PushupsActivity.class);
+                                startActivity(intent);
+                            }
+                        });
+                builder.show();
+                break;
+            }
+        }
+        return true;
+    }
 
-				getSize(screenDisplayPoint);
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            exitJudgement();
+            return false;
+        } else {
+            return super.onKeyDown(keyCode, event);
+        }
+    }
 
-		int bottomButtonLayoutHeight = bottomButtonImageHeight * (screenDisplayPoint.x / 5) / bottomButtonImageWidth;
+    public void exitJudgement() {
+        if (!isExit) {
+            isExit = true;
+            Toast.makeText(BasicActivity.this,
+                    getResources().getString(R.string.exit_judge),
+                    Toast.LENGTH_SHORT).show();
+            Message msg = handleExit.obtainMessage();
+            handleExit.sendMessageDelayed(msg, 2000);
+        } else {
+            finish();
+        }
 
-		RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, bottomButtonLayoutHeight);
-		layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+    }
 
-		return layoutParams;
-	}
+    public RelativeLayout.LayoutParams getBottomButtonLayoutParams(Context context) {
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeResource(context.getResources(), R.drawable.situps_u, options);
+        int bottomButtonImageWidth = options.outWidth;
+        int bottomButtonImageHeight = options.outHeight;
+
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Point screenDisplayPoint = new Point();
+        wm.getDefaultDisplay().
+
+                getSize(screenDisplayPoint);
+
+        int bottomButtonLayoutHeight = bottomButtonImageHeight * (screenDisplayPoint.x / 5) / bottomButtonImageWidth;
+
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
+                bottomButtonLayoutHeight);
+        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+
+        return layoutParams;
+    }
 
 }
